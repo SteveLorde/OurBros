@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OurBros", "OurBros\OurBros.csproj", "{BE6FDB62-8E33-4688-93A3-686A069C3931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OurBrosAPI", "OurBrosAPI\OurBrosAPI.csproj", "{771599F6-B4DA-44AD-9F53-97685B7DC8F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BE6FDB62-8E33-4688-93A3-686A069C3931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE6FDB62-8E33-4688-93A3-686A069C3931}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE6FDB62-8E33-4688-93A3-686A069C3931}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE6FDB62-8E33-4688-93A3-686A069C3931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771599F6-B4DA-44AD-9F53-97685B7DC8F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771599F6-B4DA-44AD-9F53-97685B7DC8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771599F6-B4DA-44AD-9F53-97685B7DC8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771599F6-B4DA-44AD-9F53-97685B7DC8F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
