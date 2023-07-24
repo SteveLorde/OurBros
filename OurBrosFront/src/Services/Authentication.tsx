@@ -1,0 +1,5 @@
+﻿export function Authentication() {
+    return (
+        <></>
+    );
+}
