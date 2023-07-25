@@ -3,3 +3,21 @@
     height: 75px;
     border-radius: 100px;
 }
+
+.navbody{
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 200px;
+}
+
+.reactlogo{
+    width: 60px;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
