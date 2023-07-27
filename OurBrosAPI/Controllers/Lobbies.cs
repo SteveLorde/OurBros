@@ -1,32 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OurBrosAPI.Data.Models;
 using OurBrosAPI.Services.Database;
 
 namespace OurBrosAPI.Controllers;
 
+[Route("Lobbies")]
 [ApiController]
 public class Lobbies : Controller
 {
     //inject IDatabase service
+    //--------------------------
     private IDatabase _db;
 
     public Lobbies(IDatabase db)
     {
         _db = db;
-    }
-    // GET
-    [HttpGet(Name = "GetLobbies")]
-    public IActionResult GetLobbies()
+    } 
+    //--------------------------
+    
+    
+    // GET Lobbies
+    //---------------------
+    [HttpGet("GetLobbies")]
+    public async Task<List<Lobby>> GetLobbies()
     {
-        
-        return Ok();
+        var lobbies = await _db.GetLobbies();
+        return lobbies;
     }
     
-    [HttpGet(Name = "ShitLobby")]
-    public IActionResult LOLLobbies()
+    //Create lobby
+    //--------------------
+    [HttpPost("CreateLobby")]
+    public async Task CreateLobby(Lobby _lobby)
     {
-        
-        return Ok();
+        await _db.CreateLobby(_lobby);
     }
     
+    //Update Lobby
+    //-------------
+    [HttpPut("UpdateLobby")]
+    public async Task UpdateLobby(int id, Lobby _lobby)
+    {
+        await _db.UpdateLobby(id, _lobby);
+    }
+    
+    //Delete Lobby
+    //------------
+    [HttpDelete("UpdateLobby")]
+    public async Task DeleteLobby(int id)
+    {
+        await _db.DeleteLobby(id);
+    }
     
 }
