@@ -6,6 +6,9 @@ export function LobbyChat() {
         <>
         <h1>LobbyChat Works</h1>
         <h1>You are in Lobby {id}</h1>
+            <form>
+                
+            </form>
         </>
     );
 }
