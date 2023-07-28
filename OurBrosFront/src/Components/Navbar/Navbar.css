@@ -1,11 +1,18 @@
 ﻿.nav {
-    background-color: red;
     height: 75px;
     border-radius: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .navbody{
-    height: 75px;
+    background-color: red;
+    border-radius: 100px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,10 +20,15 @@
 }
 
 .reactlogo{
+    min-width: 60px;
     width: 60px;
+    margin-left: auto;
+    margin-right: 30px;
+    
 }
 
 .links {
+    margin: 50px;
     display: flex;
     flex-direction: row;
     gap: 100px;

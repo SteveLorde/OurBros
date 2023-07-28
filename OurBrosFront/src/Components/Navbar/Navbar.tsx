@@ -11,8 +11,8 @@ export function Navbar() {
                     <li><Link to="/Lobbies">Lobbies</Link></li>
                     <li><Link to="/Settings">Settings</Link></li>
                 </ul>
-                <img className="reactlogo" src={reactLogo}/>
             </div>
+            <img  className="reactlogo" src={reactLogo}/>
         </div>
     );
 }
