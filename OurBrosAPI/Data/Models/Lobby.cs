@@ -1,4 +1,7 @@
-﻿namespace OurBrosAPI.Data.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace OurBrosAPI.Data.Models;
 
 public class Lobby
 {

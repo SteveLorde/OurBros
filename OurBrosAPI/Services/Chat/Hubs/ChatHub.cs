@@ -20,7 +20,7 @@ public class ChatHub : Hub
         
         if (lobby == null)
         {
-            throw new ArgumentException($"Lobby {lobbyid} not found");
+            throw new ArgumentException($"Lobbby not found");
         }
         
         await Groups.AddToGroupAsync(Context.ConnectionId, $"lobby-{lobbyid}");

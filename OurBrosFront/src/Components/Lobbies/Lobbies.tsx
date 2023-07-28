@@ -1,12 +1,15 @@
 ﻿import "./Lobbies.css"
 import * as chatservice from "../../Services/ChatService.tsx";
+import {useEffect} from "react";
 
 export function Lobbies() {
     
     //variables
     
     //methods
-    
+    useEffect( () => {
+        fetch('')
+    })
     function CreateLobby() {
         var lobbiesgrid = document.getElementById("lobbies")
         chatservice.Function2();

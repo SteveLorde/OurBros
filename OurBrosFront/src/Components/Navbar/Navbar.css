@@ -24,6 +24,7 @@
     width: 60px;
     margin-left: auto;
     margin-right: 30px;
+    animation: rotatereact 10s infinite linear;
     
 }
 
@@ -32,4 +33,13 @@
     display: flex;
     flex-direction: row;
     gap: 100px;
+}
+
+@keyframes rotatereact {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

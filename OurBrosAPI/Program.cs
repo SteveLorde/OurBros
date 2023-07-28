@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OurBrosAPI.Data;
 using OurBrosAPI.Services.Chat.Hubs;
+using OurBrosAPI.Services.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddSignalR();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IDatabase, Database>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
