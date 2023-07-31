@@ -23,7 +23,7 @@ export function Lobbies() {
     }, [])
 */
     useEffect(() => {
-        axios.get('https://example.com/api/data')
+        axios.get('http://localhost:5143/Lobbies/GetLobbies')
             .then(response => {
                 setLobbies(response.data);
             })
@@ -36,7 +36,6 @@ export function Lobbies() {
         var lobbiesgrid = document.getElementById("lobbies")
         return lobbiesgrid
     }
-
     
     //View
     //----
@@ -53,9 +52,8 @@ export function Lobbies() {
                             <h3 className="LobbyTitle">{item.name}</h3>
                             <div className="LobbyAction">
                                 {item.users.map( (subitem : User) : any => {
-                                        <div>{subitem.username}</div>
+                                        <p className="LobbyUsersNumber">{subitem.username}</p>
                                     })}
-                                <p className="LobbyUsersNumber">{}</p>
                                 <button className="JoinLobby">Join</button>
                             </div>
                         </div>
