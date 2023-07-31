@@ -5,6 +5,7 @@ using OurBrosAPI.Services.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -14,6 +15,15 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IDatabase, Database>();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy(name: "lol", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -25,7 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("lol");
 app.MapHub<ChatHub>("/Chat");
 
 app.UseAuthorization();

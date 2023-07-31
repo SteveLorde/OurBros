@@ -1,9 +1,9 @@
 {
   "name": "ourbrosfront",
+  "proxy": "http://localhost:5143",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "http://localhost:5143",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@microsoft/signalr": "^7.0.9",
+    "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",

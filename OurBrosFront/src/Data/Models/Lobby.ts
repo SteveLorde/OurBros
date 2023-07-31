@@ -2,7 +2,6 @@
 
 export interface Lobby {
     users: User[]
-    datetime: number
-    lobbyadmin: User
-    
+    name: string
+    datetime: Date
 }
