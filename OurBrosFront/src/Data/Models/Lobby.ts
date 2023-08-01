@@ -1,7 +1,8 @@
 ﻿import {User} from "./User.ts";
 
 export interface Lobby {
+    id: number
     users: User[]
-    name: string
+    lobbyName: string
     datetime: Date
 }

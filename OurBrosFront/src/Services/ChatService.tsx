@@ -1,22 +1,19 @@
-﻿import {Lobby} from "../Data/Models/Lobby.ts";
+﻿import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 
-export function StartChat() {
-    function StartChat() {
-        // @ts-ignore
-        const connection = new signalR.HubConnectionBuilder().withUrl("/chat").build()
+const connection : HubConnection = new HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
+
+export async function StartChat() {
+    try {
+        await connection.start()
+        console.log("SignalR connected.")
+    } catch (err) {
+        console.error(err)
     }
-     var x = 1
-    return x
-}
 
-export function GetLobbies() {
-    
-}
+    await StartChat();
 
-export function CreateLobby(lobby: Lobby) {
-    
-}
-
-export function DeleteLobby(id: number) {
-    return id
+    return () => {
+        connection.off("ReceiveMessage")
+        connection.stop()
+    }
 }
