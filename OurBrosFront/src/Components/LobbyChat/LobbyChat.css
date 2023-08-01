@@ -2,5 +2,25 @@
     padding: 10px;
     background-color: white;
     font-size: 20px;
-    text-underline: none;
+    text-decoration: none;
+    color: red;
+    border-radius: 10px;
+}
+
+.window {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+
+.chatwindow {
+    background-color: aqua;
+    width: 700px;
+    padding: 10px;
+}
+
+.userslist {
+    padding: 20px;
+    background-color: aliceblue;
 }

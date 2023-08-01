@@ -2,6 +2,7 @@
 import {Link, useParams} from "react-router-dom"
 import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
 import {useEffect, useState} from "react";
+import {User} from "../../Data/Models/User.ts";
 //import {Button, Form} from "react-bootstrap"
 //import {useState} from "react";
 
@@ -10,10 +11,9 @@ export function LobbyChat() {
     //variables
     //---------
     const { id } = useParams()
-    //const [users, setUsers] = useState()
-    const [messages, setMessages] = useState<any>()
+    const [users, setUsers] = useState()
+    const [messages, setMessages] = useState()
     const connection : HubConnection = new HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
-    //const [room, setRoom] = useState()
     
     //functions
     //---------
@@ -43,13 +43,12 @@ export function LobbyChat() {
     //----
     return (
         <>
+            <Link className={"Back"} to={"/Lobbies"}>Back</Link>
+            
             <div className="window">
-                <Link className={"Back"} to={"/Lobbies"}>Back</Link>
-                
                 <div className="chatwindow">
                     <h1>LobbyChat Works</h1>
                     <h1>You are in Lobby {id}</h1>
-                    
                     <div className="messagesandchat">
                         <div>
                             {messages?.map( (message : string, index : number) => (
@@ -63,9 +62,9 @@ export function LobbyChat() {
                  </div>
                 
                 <div className="userslist">
-                    
+                    <h1>USERSLIST</h1>
+
                 </div>
-                
             </div>
         </>
     )
