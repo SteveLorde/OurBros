@@ -11,7 +11,7 @@ export function Lobbies() {
     //---------
     const [lobbies, setLobbies] = useState([])
     
-    //methods
+    //functions
     //-------
     useEffect( () => {
         async function fetchData() {
@@ -26,9 +26,8 @@ export function Lobbies() {
         return lobbiesgrid
     }
     
-    function JoinLobby(id: number) {
-        //let lobbyid = id
-        
+    function JoinLobby(lobbyname : string) {
+            lobbiesservice.SetLobby(lobbyname)
     }
 
     //View
@@ -49,7 +48,7 @@ export function Lobbies() {
                                 {item.users?.map( (subitem : User) : any => {
                                         <p className="LobbyUsersNumber">{subitem.username}</p>
                                     })}
-                                <Link to={`/Lobby/${item.id}`}>Join Lobby</Link>
+                                <Link to={`/Lobby/${item.id}`} onClick={ () => JoinLobby(item.lobbyName)}>Join Lobby</Link>
                             </div>
                         </div>
                     )})

@@ -1,6 +1,14 @@
 ﻿import axios from "axios";
-import {Lobby} from "../Data/Models/Lobby.ts";
 
+let currentlobby : string = ''
+
+export function SetLobby(x : string) {
+    currentlobby = x
+}
+
+export function GetLobby() {
+    return currentlobby
+}
 
 export async function GetLobbies() {
     try {

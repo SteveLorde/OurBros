@@ -1,8 +1,8 @@
-﻿import {HubConnection, HubConnectionBuilder} from "@microsoft/signalr";
+﻿import * as signalR from "@microsoft/signalr";
 
-const connection : HubConnection = new HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
 
 export async function StartChat() {
+    let connection  = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
     try {
         await connection.start()
         console.log("SignalR connected.")
@@ -16,4 +16,10 @@ export async function StartChat() {
         connection.off("ReceiveMessage")
         connection.stop()
     }
+}
+
+export async function SignalTest() {
+    let connection  = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
+    
+    
 }
