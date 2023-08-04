@@ -24,3 +24,9 @@
     padding: 20px;
     background-color: aliceblue;
 }
+
+.messages {
+    padding: 50px;
+    margin: 10px;
+    background-color: whitesmoke;
+}

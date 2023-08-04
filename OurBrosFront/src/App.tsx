@@ -7,10 +7,20 @@ import {Home} from "./Components/Home/Home.tsx";
 import {Lobbies} from "./Components/Lobbies/Lobbies.tsx";
 import {Settings} from "./Components/Settings/Settings.tsx";
 import {LobbyChat} from "./Components/LobbyChat/LobbyChat.tsx";
+import {useEffect} from "react";
+import * as chatservice from "./Services/ChatService.tsx";
 
 
 function App() {
+    //functions
+    //---------
+    useEffect( () => {
+        chatservice.StartChat()
+    }, [])
     
+    
+    //view
+    //----
   return (
       <div>
         <Navbar></Navbar>

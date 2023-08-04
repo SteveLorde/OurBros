@@ -1,13 +1,14 @@
 ﻿import axios from "axios";
 
-let currentlobby : string = ''
-
-export function SetLobby(x : string) {
-    currentlobby = x
-}
-
-export function GetLobby() {
-    return currentlobby
+export async function GetLobbyFromServer(id: number) {
+    try {
+        let response = await axios.get(`http://localhost:5143/Lobbies/GetLobby/${id}`).then();
+        let result = response.data.lobbyName;
+        return result
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
 
 export async function GetLobbies() {

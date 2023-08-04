@@ -1,25 +1,23 @@
 ﻿import * as signalR from "@microsoft/signalr";
+import {Message} from "../Data/Models/Message.ts";
 
 
+//Start SignalR
 export async function StartChat() {
-    let connection  = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
+    const connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat" , {
+        withCredentials: false
+    }).build()
     try {
         await connection.start()
-        console.log("SignalR connected.")
+        console.log("SignalR connected")
     } catch (err) {
-        console.error(err)
+        console.log('SignalR Failed')
     }
-
-    await StartChat();
-
-    return () => {
-        connection.off("ReceiveMessage")
-        connection.stop()
-    }
-}
-
-export async function SignalTest() {
-    let connection  = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat").build();
     
+    connection.on("ReceiveMessage" , (message) => {
+        let chatmessage = {} as Message
+        chatmessage.message = message
+        return chatmessage
+    })
     
 }

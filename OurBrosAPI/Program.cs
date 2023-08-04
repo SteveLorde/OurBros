@@ -17,11 +17,9 @@ builder.Services.AddScoped<IDatabase, Database>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy(name: "lol", builder =>
+    opt.AddPolicy(name: "CorsPolicy", builder =>
     {
-        builder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     });
 });
 
@@ -34,8 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
-app.UseCors("lol");
+
 app.MapHub<ChatHub>("/Chat");
 
 app.UseAuthorization();

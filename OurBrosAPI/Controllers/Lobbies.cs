@@ -28,6 +28,15 @@ public class Lobbies : Controller
         return lobbies;
     }
     
+    // GET Lobby By ID
+    //---------------------
+    [HttpGet("GetLobby/{id}")]
+    public async Task<Lobby> GetLobbies(int id)
+    {
+        var lobby = await _db.GetLobbyById(id);
+        return lobby;
+    }
+    
     //Create lobby
     //--------------------
     [HttpPost("CreateLobby")]
@@ -46,7 +55,7 @@ public class Lobbies : Controller
     
     //Delete Lobby
     //------------
-    [HttpDelete("UpdateLobby")]
+    [HttpDelete("DeleteLobby")]
     public async Task DeleteLobby(int id)
     {
         await _db.DeleteLobby(id);

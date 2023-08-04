@@ -12,6 +12,7 @@ public interface IDatabase
     public void DeleteUser(int id);
     //lobbies
     public Task<List<Lobby>> GetLobbies();
+    public Task<Lobby> GetLobbyById(int id);
     public Task CreateLobby(Lobby lobby);
     public Task UpdateLobby(int id, Lobby lobby);
     public Task DeleteLobby(int id);
@@ -40,6 +41,12 @@ class Database : IDatabase
     {
         List<Lobby> lobbies = await _context.Lobbies.ToListAsync();
         return lobbies;
+    }
+
+    public async Task<Lobby> GetLobbyById(int id)
+    {
+        var lobby =  _context.Lobbies.SingleOrDefault(x => x.Id == id);
+        return lobby;
     }
 
     public async Task CreateLobby(Lobby lobby)
