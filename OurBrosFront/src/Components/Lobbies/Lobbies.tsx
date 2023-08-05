@@ -1,6 +1,7 @@
 ﻿import "./Lobbies.css"
 import {useEffect, useState} from "react";
 import * as lobbiesservice from '../../Services/LobbiesService.tsx'
+import * as chatservice from '../../Services/ChatService.tsx'
 import {Lobby} from "../../Data/Models/Lobby.ts"
 import {User} from "../../Data/Models/User.ts"
 import {Link} from "react-router-dom";
@@ -26,10 +27,6 @@ export function Lobbies() {
         return lobbiesgrid
     }
     
-    function JoinLobby(lobbyname : string) {
-            lobbiesservice.SetLobby(lobbyname)
-    }
-
     //View
     //----
     return (
@@ -48,7 +45,7 @@ export function Lobbies() {
                                 {item.users?.map( (subitem : User) : any => {
                                         <p className="LobbyUsersNumber">{subitem.username}</p>
                                     })}
-                                <Link to={`/Lobby/${item.id}`}>Join Lobby</Link>
+                                <Link to={`/Lobby/${item.id}`} onClick={ () => chatservice.JoinLobby}>Join Lobby</Link>
                             </div>
                         </div>
                     )})
