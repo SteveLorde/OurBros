@@ -42,24 +42,32 @@ public class ChatHub : Hub
         messagetosend.message = message;
         await Clients.All.SendAsync("ReceiveToAll", messagetosend);
     }
-
     
     //-------------------
     
-    
-    public async Task JoinLobby(int lobbyid)
+    public async Task AddToGroup(int lobbyid,string username)
     {
+        var lobby = _db.Lobbies.FirstOrDefault(x => x.Id == lobbyid);
+        lobby.Users.Add(username);
+        _db.Lobbies.Update(lobby);
+        
         string groupName = lobbyid.ToString();
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-        await Clients.Group($"{lobbyid}").SendAsync("UserJoined", Context.ConnectionId);
+    }
+
+    public async Task RemoveFromGroup(int lobbyid)
+    {
+        string groupName = lobbyid.ToString();
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
     }
     
     public async Task SendToLobby(int lobbyid, string username , string message)
     {
+        string groupName = lobbyid.ToString();
         Message messagetosend = new Message();
         messagetosend.username = username;
         messagetosend.message = message;
-        await Clients.Group($"{lobbyid}").SendAsync("ReceiveToLobby", messagetosend);
+        await Clients.Group(groupName).SendAsync("ReceiveToLobby", messagetosend);
     }
 
     

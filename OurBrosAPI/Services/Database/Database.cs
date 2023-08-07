@@ -16,6 +16,8 @@ public interface IDatabase
     public Task CreateLobby(Lobby lobby);
     public Task UpdateLobby(int id, Lobby lobby);
     public Task DeleteLobby(int id);
+    public Task GetUsersinLobby(int id);
+    public Task RemoveUserFromLobby(string username);
 }
 
 class Database : IDatabase
@@ -70,6 +72,14 @@ class Database : IDatabase
         _context.Lobbies.Remove(lobby);
         await _context.SaveChangesAsync();
     }
-    
-    
+
+    public async Task GetUsersinLobby(int id)
+    {
+        
+    }
+
+    public async Task RemoveUserFromLobby(string username)
+    {
+        
+    }
 }
