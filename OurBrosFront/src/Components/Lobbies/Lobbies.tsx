@@ -48,7 +48,7 @@ export function Lobbies() {
                                 <Link to={`/Lobby/${item.id}`} onClick={ () => chatservice.JoinLobby}>Join Lobby</Link>
                             </div>
                         </div>
-                    )})
+                    )}
                 
             </div>
             

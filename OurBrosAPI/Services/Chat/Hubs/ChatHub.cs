@@ -33,9 +33,14 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("TestReceive", "test message invoked successfully");
     }
     
-    public async Task SendToAll(string message)
+    public static string message { get; set; }
+    
+    public async Task SendToAll(string username , string message)
     {
-        await Clients.All.SendAsync("ReceiveToAll", message);
+        Message messagetosend = new Message();
+        messagetosend.username = username;
+        messagetosend.message = message;
+        await Clients.All.SendAsync("ReceiveToAll", messagetosend);
     }
 
     
@@ -49,11 +54,14 @@ public class ChatHub : Hub
         await Clients.Group($"{lobbyid}").SendAsync("UserJoined", Context.ConnectionId);
     }
     
-    public async Task SendMessageInGroup(int lobbyid, string message)
+    public async Task SendToLobby(int lobbyid, string username , string message)
     {
-        // Send the message to all clients in the room
-        await Clients.Group($"{lobbyid}").SendAsync("ReceiveMessage", message);
+        Message messagetosend = new Message();
+        messagetosend.username = username;
+        messagetosend.message = message;
+        await Clients.Group($"{lobbyid}").SendAsync("ReceiveToLobby", messagetosend);
     }
+
     
 }
 

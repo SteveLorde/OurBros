@@ -1,6 +1,5 @@
 ﻿import * as signalR from "@microsoft/signalr";
 import {LogLevel} from "@microsoft/signalr";
-import {Message} from "../Data/Models/Message.ts";
 
 
 export const connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat" , {withCredentials: false}).configureLogging(LogLevel.Information).build()
@@ -13,34 +12,14 @@ export async function StartChat() {
     } catch (err) {
         console.log('SignalR Failed')
     }
-    
-    OnConnection()
 }
 
 //SignalR "on" receivers
 //----------------------
-function OnConnection() {
-    connection.on("connect" , message => {
+
+connection.on("connect" , message => {
         console.log(message)
-    })
-}
-
-export async function OnReceiveMessage() {
-    await connection.on("ReceiveMessage" , (message) => {
-        let chatmessage = {} as Message
-        chatmessage.message = message
-        return chatmessage
-    })
-}
-
-export function OnReceiveAll() {
-    let response : any
-     connection.on("ReceiveToAll" , message => {
-         response = message
-     })
-    console.log("response is " + response)
-    return response
-}
+})
 
 //SignalR invokers
 //----------------
@@ -81,10 +60,9 @@ export async function SendMessageInLobby(lobbyid : number, message : string) {
     }
 }
 
-
-export async function SendMessageToAll(message : string) {
+export async function SendMessageToAll(username: string,message : string) {
     try {
-        connection.invoke("SendToAll", message)
+        connection.invoke("SendToAll", username, message)
         console.log('test message to all sent successfully')
     } catch (err) {
         console.log(err)

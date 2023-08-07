@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import * as lobbiesservice from '../../Services/LobbiesService.tsx'
 import * as chatservice from '../../Services/ChatService.tsx'
 import {User} from "../../Data/Models/User.ts";
+import {Message} from "../../Data/Models/Message.ts";
 
 
 //import {Button, Form} from "react-bootstrap"
@@ -16,8 +17,9 @@ export function LobbyChat() {
     const {id} = useParams()
     const lobbyid = parseInt(id as string)
     const [users, setUsers] = useState<any>()
-    const [messages, setMessages] = useState<any>()
+    const [messages, setMessages] = useState<Message[]>([])
     const [lobbyname, setLobby] = useState<any>()
+    const [testmessage, setTestMessage] = useState<any>()
     
     let message : string = ''
     
@@ -30,28 +32,20 @@ export function LobbyChat() {
         }
         fetchLobbyName()
     }, [])
-    
+ 
     useEffect( () => {
-        async function receivemessages() {
-            let x : any = await chatservice.OnReceiveAll()
-            console.log(x)
-        }
-        receivemessages()
-    }, [])
-    
-    /*
-    function SubmitMessage(event : any) {
-        //prevent component from re-rendering when calling function
-        event.preventDefault()
-        chatservice.SendMessage(lobbyid , message)
-        message = ''
-    }
-    */
+        chatservice.connection.on("ReceiveToAll" , ( response : Message ) => {
+            setMessages([...messages, response])
+        })
+    })
     
     function SubmitMessageToALL(event : any) {
         //prevent component from re-rendering when calling function
         event.preventDefault()
-        chatservice.SendMessageToAll(message)
+        let messagetosend = {} as Message
+        messagetosend.username = 'test username'
+        messagetosend.message = message
+        chatservice.SendMessageToAll(messagetosend.username,messagetosend.message)
         message = ''
     }
     
@@ -71,10 +65,14 @@ export function LobbyChat() {
                     <h1>You are in Lobby {lobbyname}</h1>
                     <div className="messagesandchat">
                         <ul className={'messages'}>
-                            {messages?.map( (message : string, index : number) => (
-                                <li className={"message"} key={index}>{message}</li>
-                            ))}
+                            <p>test message is {testmessage}</p>
+                            
+                            {messages?.map( (message : Message) => 
+                                <p className={"message"}>{message.username}: {message.message}</p>
+                            )}
+                            
                         </ul>
+                        
                         <div>
                           <form onSubmit={SubmitMessageToALL} >
                               <input type={'text'} onChange={ (x) => message = x.target.value } />
@@ -82,6 +80,7 @@ export function LobbyChat() {
                           </form>
                             <button onClick={TestInvoke}>Test SignalR Invoke</button>
                         </div>
+                        
                     </div>
                  </div>
                 
