@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core'
 import * as signalr from '@microsoft/signalr'
 import {LogLevel} from '@microsoft/signalr'
+import {Message} from "../Data/Models/Message";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class SignalRService {
 
   async Listen(){
     try {
-      this.connection.on('ReceivedMEssage', (response) => {
+      this.connection.on('ReceivedMessage', (response) => {
           console.log(response)
         }
       )
@@ -37,9 +38,9 @@ export class SignalRService {
       }
   }
 
-  async SendMessage(message : string) {
+  async SendMessage(message : Message) {
     try {
-      this.connection.invoke("SendMessage", message)
+      this.connection.invoke("SendToAll", message.username, message.message)
     }
     catch (err) {
       console.log(err)
