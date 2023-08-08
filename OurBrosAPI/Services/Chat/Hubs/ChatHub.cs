@@ -32,9 +32,7 @@ public class ChatHub : Hub
     {
         await Clients.All.SendAsync("TestReceive", "test message invoked successfully");
     }
-    
-    public static string message { get; set; }
-    
+
     public async Task SendToAll(string username , string message)
     {
         Message messagetosend = new Message();

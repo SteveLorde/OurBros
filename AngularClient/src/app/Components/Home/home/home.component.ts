@@ -14,25 +14,24 @@ export class HomeComponent {
    messages : Message[] = []
 
   constructor(private _chatservice : SignalRService) {
-     this.ReceiveMessages()
+
+     //SignalR Listener
+    this._chatservice.connection.on("ReceiveToAll" , (response : Message) => {
+      this.messages.push(response)
+      console.log('signalr returned a message')
+    })
+
   }
 
   //functions
   async StarChat(){
      try {
-       this._chatservice.connection.start().then( () => {
-         this.ReceiveMessages()
-       })
+       this._chatservice.connection.start()
        console.log("SignalR started on AngularClient ")
      }
      catch (err) {
        console.log(err)
      }
-  }
-  ReceiveMessages() {
-    this._chatservice.connection.on("ReceiveToAll" , (response : Message) => {
-      this.messages.push(response)
-    })
   }
 
   SendMessage() {
