@@ -7,6 +7,7 @@ public class Lobby
 {
     public int Id { get; set; }
     public string LobbyName { get; set; }
+    
     public List<string> Users { get; set; }
     
 }

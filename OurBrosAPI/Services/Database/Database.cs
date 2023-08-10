@@ -1,26 +1,10 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OurBrosAPI.Data;
 using OurBrosAPI.Data.Models;
 
 namespace OurBrosAPI.Services.Database;
 
-public interface IDatabase
-{
-    //users
-    public void CreateUser();
-    public void DeleteUser(int id);
-    //lobbies
-    public Task<List<Lobby>> GetLobbies();
-    public Task<Lobby> GetLobbyById(int id);
-    public Task CreateLobby(Lobby lobby);
-    public Task UpdateLobby(int id, Lobby lobby);
-    public Task DeleteLobby(int id);
-    public Task GetUsersinLobby(int id);
-    public Task RemoveUserFromLobby(string username);
-}
-
-class Database : IDatabase
+public class Database : IDatabase
 {
     private DataContext _context;
 
@@ -53,8 +37,8 @@ class Database : IDatabase
 
     public async Task CreateLobby(Lobby lobby)
     {
-         _context.Lobbies.Add(lobby);
-         await _context.SaveChangesAsync();
+        _context.Lobbies.Add(lobby);
+        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateLobby(int id, Lobby _lobby)
@@ -63,7 +47,6 @@ class Database : IDatabase
         lobby = _lobby;
         _context.Lobbies.Update(lobby);
         await _context.SaveChangesAsync();
-
     }
 
     public async Task DeleteLobby(int id)
