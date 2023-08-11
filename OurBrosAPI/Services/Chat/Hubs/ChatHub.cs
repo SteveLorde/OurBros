@@ -46,7 +46,7 @@ public class ChatHub : Hub
     public async Task AddToGroup(int lobbyid,string username)
     {
         var lobby = _db.Lobbies.FirstOrDefault(x => x.Id == lobbyid);
-        lobby.Users.Add(username);
+        //lobby.users.Add(username);
         _db.Lobbies.Update(lobby);
         
         string groupName = lobbyid.ToString();

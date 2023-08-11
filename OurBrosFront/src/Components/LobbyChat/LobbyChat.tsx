@@ -19,7 +19,6 @@ export function LobbyChat() {
     const [users, setUsers] = useState<any>()
     const [messages, setMessages] = useState<Message[]>([])
     const [lobbyname, setLobby] = useState<any>()
-    const [testmessage, setTestMessage] = useState<any>()
     
     let message : string = ''
     
