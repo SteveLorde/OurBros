@@ -18,6 +18,10 @@ public class DataContext : DbContext
             new Lobby { Id = 2, LobbyName = "Lobby2"},
             new Lobby { Id = 3, LobbyName = "lobby3"}
         );
+        modelBuilder.Entity<User>().HasData(
+            new User { Id = 0, Name = "Jack" },
+            new User { Id = 1, Name = "User 2" }
+        );
     }
     
 }

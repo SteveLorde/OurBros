@@ -41,16 +41,18 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("ReceiveToAll", messagetosend);
     }
     
-    //-------------------
-    
     public async Task AddToGroup(int lobbyid,string username)
     {
         var lobby = _db.Lobbies.FirstOrDefault(x => x.Id == lobbyid);
         //lobby.users.Add(username);
         _db.Lobbies.Update(lobby);
-        
         string groupName = lobbyid.ToString();
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+    }
+
+    public async Task ShowGroupMembers(int lobbyid)
+    {
+        
     }
 
     public async Task RemoveFromGroup(int lobbyid)

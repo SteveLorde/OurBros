@@ -3,8 +3,8 @@ import {Link, useParams} from "react-router-dom"
 import {useEffect, useState} from "react";
 import * as lobbiesservice from '../../Services/LobbiesService.tsx'
 import * as chatservice from '../../Services/ChatService.tsx'
-import {User} from "../../Data/Models/User.ts";
 import {Message} from "../../Data/Models/Message.ts";
+import {username} from "../../Services/Authentication/Authentication.tsx";
 
 
 //import {Button, Form} from "react-bootstrap"
@@ -16,9 +16,10 @@ export function LobbyChat() {
     //---------
     const {id} = useParams()
     const lobbyid = parseInt(id as string)
-    const [users, setUsers] = useState<any>()
+    const [users, setUsers] = useState<string[]>([])
     const [messages, setMessages] = useState<Message[]>([])
-    const [lobbyname, setLobby] = useState<any>()
+    const [lobbyname, setLobbyName] = useState<any>()
+    const [lobbyowner, setLobbyOwner] = useState<string>()
     
     let message : string = ''
     
@@ -26,8 +27,9 @@ export function LobbyChat() {
     //---------
     useEffect(() => {
         async function fetchLobbyName() {
-            let _lobbyname = await lobbiesservice.GetLobbyFromServer(lobbyid)
-            setLobby(_lobbyname)
+            let Lobby = await lobbiesservice.GetLobbyFromServer(lobbyid)
+            setLobbyName(Lobby?.lobbyName)
+            setLobbyOwner(Lobby?.lobbyOwner)
         }
         fetchLobbyName()
     }, [])
@@ -37,21 +39,22 @@ export function LobbyChat() {
             setMessages([...messages, response])
         })
     })
+
+    useEffect( () => {
+        chatservice.connection.on("UserJoined" , ( user : string ) => {
+            setUsers([...users, user])
+        })
+    })
     
-    function SubmitMessageToALL(event : any) {
-        //prevent component from re-rendering when calling function
+    function SubmitMessage(event : any) {
         event.preventDefault()
         let messagetosend = {} as Message
-        messagetosend.username = 'test username'
+        messagetosend.username = username
         messagetosend.message = message
-        chatservice.SendMessageToAll(messagetosend.username,messagetosend.message)
+        chatservice.SendMessageInLobby(lobbyid,messagetosend.message)
         message = ''
     }
     
-    function TestInvoke(event : any) {
-        event.preventDefault()
-        chatservice.TestInvoke()
-    }
     
     //view
     //----
@@ -64,8 +67,6 @@ export function LobbyChat() {
                     <h1>You are in Lobby {lobbyname}</h1>
                     <div className="messagesandchat">
                         <ul className={'messages'}>
-                            <p>test message is {testmessage}</p>
-                            
                             {messages?.map( (message : Message) => 
                                 <p className={"message"}>{message.username}: {message.message}</p>
                             )}
@@ -73,11 +74,10 @@ export function LobbyChat() {
                         </ul>
                         
                         <div>
-                          <form onSubmit={SubmitMessageToALL} >
+                          <form onSubmit={SubmitMessage} >
                               <input type={'text'} onChange={ (x) => message = x.target.value } />
                               <input type={'submit'} value={'Send Message'} />
                           </form>
-                            <button onClick={TestInvoke}>Test SignalR Invoke</button>
                         </div>
                         
                     </div>
@@ -86,8 +86,9 @@ export function LobbyChat() {
                 <div className="userslist">
                     <h1>USERSLIST</h1>
                     <div className={'users'}>
-                        {users?.map( (user : User, index : number) => (
-                            <p key={index}>{user.username}</p>
+                        <p>{lobbyowner}</p>
+                        {users?.map( (user : string, index : number) => (
+                            <p key={index}>{user}</p>
                         ))}
                     </div>
                 </div>

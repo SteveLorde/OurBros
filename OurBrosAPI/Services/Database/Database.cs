@@ -18,6 +18,12 @@ public class Database : IDatabase
         throw new NotImplementedException();
     }
 
+    public async Task<User> GetUser(string username)
+    {
+        var user = await _context.Users.FirstAsync(x => x.Name == username);
+        return user;
+    }
+
     public void DeleteUser(int id)
     {
         throw new NotImplementedException();

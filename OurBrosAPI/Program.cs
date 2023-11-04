@@ -33,13 +33,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
-
 app.UseHttpsRedirection();
-
 app.MapHub<ChatHub>("/Chat");
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

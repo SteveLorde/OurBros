@@ -2,7 +2,8 @@
 
 export interface Lobby {
     id: number
-    users: User[]
-    lobbyName: string
-    datetime: Date
+    users?: User[]
+    lobbyName?: string
+    lobbyOwner?: string
+    datetime?: Date
 }

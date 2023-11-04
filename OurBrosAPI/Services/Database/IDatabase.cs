@@ -9,6 +9,7 @@ public interface IDatabase
 {
     //users
     public void CreateUser();
+    public Task<User> GetUser(string username);
     public void DeleteUser(int id);
     //lobbies
     public Task<List<Lobby>> GetLobbies();
