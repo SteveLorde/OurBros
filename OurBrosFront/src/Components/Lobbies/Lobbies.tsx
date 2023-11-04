@@ -27,12 +27,13 @@ export function Lobbies() {
         return lobbiesgrid
     }
     
+    
     //View
     //----
     return (
         <>
             <div className="Header">
-                <h1>Lobbies Test</h1>
+                <h1 className={'title'}>Available Lobbies</h1>
                 <button className="CreateLobby" onClick={CreateLobby}>Create Lobby</button>
             </div>
             
@@ -45,7 +46,7 @@ export function Lobbies() {
                                 {item.users?.map( (subitem : User) : any => {
                                         <p className="LobbyUsersNumber">{subitem.username}</p>
                                     })}
-                                <Link to={`/Lobby/${item.id}`} onClick={ () => chatservice.JoinLobby}>Join Lobby</Link>
+                                <Link className="joinbutton" to={`/Lobby/${item.id}`} onClick={ () => chatservice.JoinLobby}>Join Lobby</Link>
                             </div>
                         </div>
                     )}

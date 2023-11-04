@@ -27,12 +27,7 @@ public class ChatHub : Hub
     {
         await base.OnDisconnectedAsync(exception);
     }
-
-    public async Task TestSend()
-    {
-        await Clients.All.SendAsync("TestReceive", "test message invoked successfully");
-    }
-
+    
     public async Task SendToAll(string username , string message)
     {
         Message messagetosend = new Message();
@@ -41,21 +36,19 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("ReceiveToAll", messagetosend);
     }
     
-    public async Task AddToGroup(int lobbyid,string username)
+    public async Task JoinLobby(int lobbyid,string username)
     {
         var lobby = _db.Lobbies.FirstOrDefault(x => x.Id == lobbyid);
-        //lobby.users.Add(username);
-        _db.Lobbies.Update(lobby);
         string groupName = lobbyid.ToString();
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
     }
 
-    public async Task ShowGroupMembers(int lobbyid)
+    public async Task ShowLobbyMembers(int lobbyid)
     {
         
     }
 
-    public async Task RemoveFromGroup(int lobbyid)
+    public async Task LeaveLobby(int lobbyid)
     {
         string groupName = lobbyid.ToString();
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);

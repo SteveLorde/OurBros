@@ -70,7 +70,6 @@ export function LobbyChat() {
                             {messages?.map( (message : Message) => 
                                 <p className={"message"}>{message.username}: {message.message}</p>
                             )}
-                            
                         </ul>
                         
                         <div>

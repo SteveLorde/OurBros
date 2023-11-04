@@ -19,8 +19,8 @@ public class DataContext : DbContext
             new Lobby { Id = 3, LobbyName = "lobby3"}
         );
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 0, Name = "Jack" },
-            new User { Id = 1, Name = "User 2" }
+            new User { Id = 1, Name = "Jack" },
+            new User { Id = 2, Name = "User 2" }
         );
     }
     
