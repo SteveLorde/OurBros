@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,5 +9,7 @@ public class Lobby
 {
     public int Id { get; set; }
     public string LobbyName { get; set; }
+    [NotMapped]
+    public List<User> Users { get; set; }
 
 }

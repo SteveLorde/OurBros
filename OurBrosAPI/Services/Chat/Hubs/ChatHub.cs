@@ -41,6 +41,7 @@ public class ChatHub : Hub
         var lobby = _db.Lobbies.FirstOrDefault(x => x.Id == lobbyid);
         string groupName = lobbyid.ToString();
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await Clients.Group(groupName).SendAsync("UserJoined", username);
     }
 
     public async Task ShowLobbyMembers(int lobbyid)
