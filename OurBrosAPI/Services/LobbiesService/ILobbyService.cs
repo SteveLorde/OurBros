@@ -7,4 +7,5 @@ public interface ILobbyService
     public bool InititateMemoryLobbies();
     public Task AddUserToLobby(string lobbyname, User usertoadd);
     public Task RemoveUserfromLobby(string lobbyname, string username);
+    public Task<int> GetNumberOfUsers(string lobbyname);
 }

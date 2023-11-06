@@ -4,27 +4,49 @@ import * as lobbiesservice from '../../Services/LobbiesService.tsx'
 import * as chatservice from '../../Services/ChatService.tsx'
 import {Lobby} from "../../Data/Models/Lobby.ts"
 import {User} from "../../Data/Models/User.ts"
-import {Link} from "react-router-dom";
+import * as reactrouter from "react-router-dom";
+import {PasswordModal} from "../PasswordModal/PasswordModal.tsx";
+import {useNavigate} from "react-router-dom";
 
 export function Lobbies() {
     
     //variables
     //---------
+    const reactnavigate = useNavigate()
     const [lobbies, setLobbies] = useState([])
+    const [isvisible, SetShowWindow] = useState(false)
     
     //functions
     //-------
-    useEffect( () => {
-        async function fetchData() {
-            let result = await lobbiesservice.GetLobbies()
-            setLobbies(result)
+    function openwindow() {
+        SetShowWindow(true)
+    }
+
+    function closewindow() {
+        SetShowWindow(false)
+    }
+    
+    async function CheckJoin(lobbyid : number) {
+        let check = await chatservice.JoinLobbyOwnerCheck(lobbyid)
+        if (check) {
+            reactnavigate(`/Lobby/${lobbyid}`)
         }
+        else {
+            openwindow()
+        }
+    }
+    
+    async function fetchData() {
+        let result = await lobbiesservice.GetLobbies()
+        setLobbies(result)
+    }
+    
+    useEffect( () => {
         fetchData()
     }, [])
 
     function CreateLobby() {
-        let lobbiesgrid = document.getElementById("lobbies")
-        return lobbiesgrid
+        
     }
     
     
@@ -37,16 +59,16 @@ export function Lobbies() {
                 <button className="CreateLobby" onClick={CreateLobby}>Create Lobby</button>
             </div>
             
+            <PasswordModal IsOpen={isvisible} closewindow={closewindow}></PasswordModal>
+            
             <div id="lobbies" className="lobbies">
                 
                 {lobbies?.map( (item : Lobby) : any => 
                     <div className="LobbyCard">
                             <h3 className="LobbyTitle">{item.lobbyName}</h3>
+                            <h3 className="LobbyUserCount">Users: {item.usercount}</h3>
                             <div className="LobbyAction">
-                                {item.users?.map( (subitem : User) : any => {
-                                        <p className="LobbyUsersNumber">{subitem.username}</p>
-                                    })}
-                                <Link className="joinbutton" to={`/Lobby/${item.id}`} onClick={ () => chatservice.JoinLobby}>Join Lobby</Link>
+                                <button className="joinbutton" onClick={ () => CheckJoin(item.id) }>Join Lobby</button>
                             </div>
                         </div>
                     )}

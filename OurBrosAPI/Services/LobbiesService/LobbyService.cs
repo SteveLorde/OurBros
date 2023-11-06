@@ -33,6 +33,12 @@ public class LobbyService : ILobbyService
         var targettoremove = lobby.Users.First(x => x.Name == username);
         lobby.Users.Remove(targettoremove);
     }
+
+    public async Task<int> GetNumberOfUsers(string lobbyname)
+    {
+        Lobby lobby = lobbies.First(x => x.LobbyName == lobbyname);
+        return lobby.Users.Count;
+    }
     
     
 }

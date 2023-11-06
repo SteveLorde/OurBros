@@ -34,11 +34,10 @@ export async function TestInvoke() {
     }
 }
 
-export async function JoinLobby (lobbyid : number) {
+export async function JoinLobbyOwnerCheck (lobbyid : number) {
     try {
         let lobbydata = await GetLobbyFromServer(lobbyid)
-        if (username == lobbydata?.lobbyOwner)
-        connection.invoke("JoinLobby", lobbyid)
+        return username == lobbydata?.lobbyOwner;
     }
     catch (err) {
         console.log(err)

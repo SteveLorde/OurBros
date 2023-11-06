@@ -5,5 +5,6 @@ export interface Lobby {
     users?: User[]
     lobbyName?: string
     lobbyOwner?: string
+    usercount: number
     datetime?: Date
 }
