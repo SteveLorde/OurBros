@@ -2,6 +2,6 @@
 
 public interface UserDTO
 {
-    public string username { get; set; }
-    public string userpassword { get; set; }
+    public string? username { get; set; }
+    public string? userpassword { get; set; }
 }

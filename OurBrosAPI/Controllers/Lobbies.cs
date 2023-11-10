@@ -9,7 +9,6 @@ namespace OurBrosAPI.Controllers;
 [ApiController]
 public class Lobbies : Controller
 {
-    //inject IDatabase service
     //--------------------------
     private readonly ILobbyService _lobbyservice;
 
@@ -19,9 +18,7 @@ public class Lobbies : Controller
     } 
     //--------------------------
     
-    
-    // GET Lobbies
-    //---------------------
+
     [HttpGet("GetLobbies")]
     public async Task<List<Lobby>> GetLobbies()
     {
@@ -29,29 +26,34 @@ public class Lobbies : Controller
         return lobbies;
     }
     
-    // GET Lobby By ID
-    //---------------------
-    [HttpGet("GetLobby/{id}")]
-    public async Task<Lobby> GetLobbies(LobbyDTO lobbytofind)
+    [HttpPost("GetLobby")]
+    public async Task<Lobby> GetLobby(LobbyDTO lobbytofind)
     {
-        var lobby = await _lobbyservice.GetLobbybyId(lobbytofind);
-        return lobby;
+        return _lobbyservice.GetLobby(lobbytofind);
     }
     
-    //Create lobby
-    //--------------------
     [HttpPost("CreateLobby")]
-    public async Task CreateLobby(LobbyDTO newlobbyrequest, UserDTO user)
+    public async Task CreateALobby(LobbyControllerDTO request)
     {
-        await _lobbyservice.CreateLobby(newlobbyrequest, user);
+        await _lobbyservice.CreateLobby(request.LobbyDto, request.UserDto);
     }
     
-    //Delete Lobby
-    //------------
-    [HttpDelete("DeleteLobby")]
-    public async Task DeleteLobby(int id)
+    [HttpPost("JoinLobby")]
+    public async Task JoinLobby(LobbyControllerDTO request)
     {
-        await _lobbyservice.DeleteLobby(id);
+        await _lobbyservice.AddUserToLobby(request.LobbyDto, request.UserDto);
+    }
+    
+    [HttpPost("QuitLobby")]
+    public async Task QuitLobby(LobbyControllerDTO request)
+    {
+        await _lobbyservice.RemoveUserfromLobby(request.LobbyDto, request.UserDto);
+    }
+
+    [HttpDelete("DeleteLobby")]
+    public async Task DeleteLobby(LobbyControllerDTO request)
+    {
+        await _lobbyservice.DeleteLobby(request.LobbyDto,request.UserDto);
     }
     
 }

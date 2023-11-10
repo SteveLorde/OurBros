@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.SignalR;
 using OurBrosAPI.Data;
+using OurBrosAPI.Data.DTOs;
 using OurBrosAPI.Data.Models;
 
 namespace OurBrosAPI.Services.Chat.Hubs;
@@ -35,13 +36,12 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("ReceiveToAll", messagetosend);
     }
     
-    public async Task JoinLobby(int lobbyid,User user)
+    public async Task JoinLobby(LobbyDTO lobby,UserDTO user)
     {
-        var lobby = _lobbyservice.GetLobbybyId(lobbyid);
-        string lobbyName = lobbyid.ToString();
-        await Groups.AddToGroupAsync(Context.ConnectionId, lobbyName);
-        await _lobbyservice.AddUserToLobby(lobbyName,user);
-        await Clients.Group(lobbyName).SendAsync("UserJoined", user.username);
+        Lobby Lobby = _lobbyservice.GetLobby(lobby);
+        await Groups.AddToGroupAsync(Context.ConnectionId, Lobby.lobbyname);
+        await _lobbyservice.AddUserToLobby(lobby,user);
+        await Clients.Group(Lobby.lobbyname).SendAsync("UserJoined", user.username);
     }
 
     public async Task ShowLobbyMembers(int lobbyid)
@@ -49,11 +49,10 @@ public class ChatHub : Hub
         
     }
 
-    public async Task LeaveLobby(int lobbyid, string username)
+    public async Task LeaveLobby(LobbyDTO lobbytoleave, UserDTO usertoleave)
     {
-        string lobbyName = lobbyid.ToString();
-        await _lobbyservice.RemoveUserfromLobby(lobbyName, username);
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, lobbyName);
+        await _lobbyservice.RemoveUserfromLobby(lobbytoleave, usertoleave);
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, lobbytoleave.lobbyname);
     }
     
     public async Task SendMessageInLobby(int lobbyid, string username , string message)

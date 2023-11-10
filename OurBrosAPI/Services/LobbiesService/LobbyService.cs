@@ -11,11 +11,14 @@ public class LobbyService : ILobbyService
     private readonly DataContext _db;
 
     public List<Lobby> lobbies;
+    private Timer _timer;
+
 
     public LobbyService(DataContext db)
     {
         _db = db;
         lobbies = InititateLobbies();
+        _timer = new Timer(PeriodicSaving, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
     private List<Lobby> InititateLobbies()
     {
@@ -27,7 +30,7 @@ public class LobbyService : ILobbyService
         return lobbies;
     }
 
-    public async Task<Lobby> GetLobby(LobbyDTO lobbytofind)
+    public Lobby GetLobby(LobbyDTO lobbytofind)
     {
         return lobbies.First(x => x.lobbyname == lobbytofind.lobbyname);
     }
@@ -70,4 +73,14 @@ public class LobbyService : ILobbyService
             return false;
         }
     }
+
+    private void PeriodicSaving(object? state)
+    {
+        foreach (Lobby lobby in lobbies)
+        {
+            _db.Lobbies.Update(lobby);
+        }
+    }
+
+
 }
