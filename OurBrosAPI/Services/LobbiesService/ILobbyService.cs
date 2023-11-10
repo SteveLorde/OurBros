@@ -1,13 +1,14 @@
-﻿using OurBrosAPI.Data.Models;
+﻿using OurBrosAPI.Data.DTOs;
+using OurBrosAPI.Data.Models;
 
 namespace OurBrosAPI.Services.Chat;
 
 public interface ILobbyService
 {
     public Task<List<Lobby>> GetLobbies();
-    public Task<Lobby> GetLobbybyId(int lobbyid);
-    public Task<bool> CreateLobby(string lobbyname, User lobbyowner);
-    public Task AddUserToLobby(string lobbyname, User usertoadd);
-    public Task RemoveUserfromLobby(string lobbyname, string username);
-    public Task<bool> DeleteLobby(string lobbyname,string username);
+    public Task<Lobby> GetLobby(LobbyDTO lobbytofind);
+    public Task<bool> CreateLobby(LobbyDTO newlobby, UserDTO lobbyowner);
+    public Task AddUserToLobby(LobbyDTO lobby, UserDTO usertoadd);
+    public Task RemoveUserfromLobby(LobbyDTO lobby, UserDTO usertoremove);
+    public Task<bool> DeleteLobby(LobbyDTO lobbytodelete,UserDTO lobbyowner);
 }

@@ -3,8 +3,8 @@
 export interface Lobby {
     id: number
     users?: User[]
-    lobbyName?: string
-    lobbyOwner?: string
-    usercount: number
+    lobbyname?: string
+    lobbyowner?: string
+    usercount?: number
     datetime?: Date
 }

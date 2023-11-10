@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OurBrosAPI.Data;
+using OurBrosAPI.Data.DTOs;
 using OurBrosAPI.Data.Models;
 using OurBrosAPI.Services.Chat;
 
@@ -26,38 +27,40 @@ public class LobbyService : ILobbyService
         return lobbies;
     }
 
-    public async Task<Lobby> GetLobbybyId(int lobbyid)
+    public async Task<Lobby> GetLobby(LobbyDTO lobbytofind)
     {
-        return lobbies.First(x => x.Id == lobbyid);
+        return lobbies.First(x => x.lobbyname == lobbytofind.lobbyname);
     }
 
-    public async Task<bool> CreateLobby(string lobbyname, User lobbyowner)
+    public async Task<bool> CreateLobby(LobbyDTO newlobby, UserDTO clientlobbyowner)
     {
-        Lobby newlobby = new Lobby { lobbyname = lobbyname, lobbyowner = lobbyowner.username, Users = new List<User> {new User {Id = lobbyowner.Id, username = lobbyowner.username} } };
-        newlobby.usercount = newlobby.Users.Count;
-        lobbies.Add(newlobby);
+        User lobbyowner = await _db.Users.FirstAsync(x => x.username == clientlobbyowner.username);
+        Lobby newLobby = new Lobby { lobbyname = newlobby.lobbyname, lobbyowner = lobbyowner.username, Users = new List<User> {new User(lobbyowner) } };
+        newlobby.usercount = newLobby.Users.Count;
+        lobbies.Add(newLobby);
         return true;
     }
 
-    public async Task AddUserToLobby(string lobbyname, User usertoadd)
+    public async Task AddUserToLobby(LobbyDTO lobby, UserDTO clientusertoadd)
     {
-        Lobby lobby = lobbies.First(x => x.lobbyname == lobbyname);
-        lobby.Users.Add(usertoadd);
-        lobby.usercount = lobby.Users.Count;
+        Lobby Lobby = lobbies.First(x => x.lobbyname == lobby.lobbyname);
+        User usertoadd = _db.Users.First(x => x.username == clientusertoadd.username);
+        Lobby.Users.Add(usertoadd);
+        lobby.usercount = Lobby.Users.Count;
     }
     
-    public async Task RemoveUserfromLobby(string lobbyname, string username)
+    public async Task RemoveUserfromLobby(LobbyDTO lobby, UserDTO usertoremove)
     {
-        Lobby lobby = lobbies.First(x => x.lobbyname == lobbyname);
-        var targettoremove = lobby.Users.First(x => x.username == username);
-        lobby.Users.Remove(targettoremove);
-        lobby.usercount = lobby.Users.Count;
+        Lobby Lobby = lobbies.First(x => x.lobbyname == lobby.lobbyname);
+        var targettoremove = Lobby.Users.First(x => x.username == usertoremove.username);
+        Lobby.Users.Remove(targettoremove);
+        Lobby.usercount = Lobby.Users.Count;
     }
 
-    public async Task<bool> DeleteLobby(string lobbyname, string username)
+    public async Task<bool> DeleteLobby(LobbyDTO lobbytodelete, UserDTO lobbyowner)
     {
-        var lobby = lobbies.First(x => x.lobbyname == lobbyname);
-        if (username == lobby.lobbyowner)
+        var lobby = lobbies.First(x => x.lobbyname == lobbytodelete.lobbyname);
+        if (lobbyowner.username == lobby.lobbyowner)
         {
             lobbies.Remove(lobby);
             return true;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OurBrosAPI.Data.DTOs;
 using OurBrosAPI.Data.Models;
 using OurBrosAPI.Services.Chat;
 
@@ -31,26 +32,18 @@ public class Lobbies : Controller
     // GET Lobby By ID
     //---------------------
     [HttpGet("GetLobby/{id}")]
-    public async Task<Lobby> GetLobbies(int id)
+    public async Task<Lobby> GetLobbies(LobbyDTO lobbytofind)
     {
-        var lobby = await _lobbyservice.GetLobbybyId(id);
+        var lobby = await _lobbyservice.GetLobbybyId(lobbytofind);
         return lobby;
     }
     
     //Create lobby
     //--------------------
     [HttpPost("CreateLobby")]
-    public async Task CreateLobby(NewLobby _lobby)
+    public async Task CreateLobby(LobbyDTO newlobbyrequest, UserDTO user)
     {
-        await _lobbyservice.CreateLobby();
-    }
-    
-    //Update Lobby
-    //-------------
-    [HttpPut("UpdateLobby")]
-    public async Task UpdateLobby(int id, Lobby _lobby)
-    {
-        await _db.UpdateLobby(id, _lobby);
+        await _lobbyservice.CreateLobby(newlobbyrequest, user);
     }
     
     //Delete Lobby
@@ -58,7 +51,7 @@ public class Lobbies : Controller
     [HttpDelete("DeleteLobby")]
     public async Task DeleteLobby(int id)
     {
-        await _db.DeleteLobby(id);
+        await _lobbyservice.DeleteLobby(id);
     }
     
 }
