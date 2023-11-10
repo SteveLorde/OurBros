@@ -4,8 +4,10 @@ namespace OurBrosAPI.Services.Chat;
 
 public interface ILobbyService
 {
-    public bool InititateMemoryLobbies();
+    public Task<List<Lobby>> GetLobbies();
+    public Task<Lobby> GetLobbybyId(int lobbyid);
+    public Task<bool> CreateLobby(string lobbyname, User lobbyowner);
     public Task AddUserToLobby(string lobbyname, User usertoadd);
     public Task RemoveUserfromLobby(string lobbyname, string username);
-    public Task<int> GetNumberOfUsers(string lobbyname);
+    public Task<bool> DeleteLobby(string lobbyname,string username);
 }

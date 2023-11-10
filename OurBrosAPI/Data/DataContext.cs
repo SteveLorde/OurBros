@@ -14,13 +14,13 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { 
         modelBuilder.Entity<Lobby>().HasData(
-            new Lobby { Id = 1, LobbyName = "Lobby1"},
-            new Lobby { Id = 2, LobbyName = "Lobby2"},
-            new Lobby { Id = 3, LobbyName = "lobby3"}
+            new Lobby { Id = 1, lobbyname = "Lobby1"},
+            new Lobby { Id = 2, lobbyname = "Lobby2"},
+            new Lobby { Id = 3, lobbyname = "lobby3"}
         );
         modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Name = "Jack" },
-            new User { Id = 2, Name = "User 2" }
+            new User { Id = 1, username = "Jack" },
+            new User { Id = 2, username = "User 2" }
         );
     }
     

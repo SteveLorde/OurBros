@@ -25,15 +25,6 @@ connection.on("connect" , message => {
 
 //SignalR invokers
 //----------------
-export async function TestInvoke() {
-    try {
-        connection.invoke("TestSend")
-        await connection.on("TestReceive", res => console.log(res))
-    } catch (err) {
-        console.log(err)
-    }
-}
-
 export async function JoinLobbyOwnerCheck (lobbyid : number) {
     try {
         let lobbydata = await GetLobbyFromServer(lobbyid)
@@ -56,18 +47,11 @@ export async function LeaveLobby (lobbyid : number) {
 
 export async function SendMessageInLobby(lobbyid : number, message : string) {
     try {
-        await connection.invoke("SendMessageInGroup", lobbyid, message)
+        await connection.invoke("SendMessageInLobby", lobbyid, message)
         console.log('message sent successfully')
     } catch (err) {
         console.log(err)
     }
 }
 
-export async function SendMessageToAll(username: string,message : string) {
-    try {
-        connection.invoke("SendToAll", username, message)
-        console.log('test message to all sent successfully')
-    } catch (err) {
-        console.log(err)
-    }
 }

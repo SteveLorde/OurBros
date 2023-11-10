@@ -12,13 +12,15 @@ export function Lobbies() {
     
     //variables
     //---------
-    const reactnavigate = useNavigate()
     const [lobbies, setLobbies] = useState([])
     const [isvisible, SetShowWindow] = useState(false)
-    
+    const [selectedlobbyId, setSelectedLobbyId] = useState<number>(0);
+
     //functions
     //-------
-    function openwindow() {
+    const reactnavigate = useNavigate()
+    function openwindow(selectedlobbyid : number) {
+        setSelectedLobbyId(selectedlobbyid)
         SetShowWindow(true)
     }
 
@@ -29,11 +31,16 @@ export function Lobbies() {
     async function CheckJoin(lobbyid : number) {
         let check = await chatservice.JoinLobbyOwnerCheck(lobbyid)
         if (check) {
+            setSelectedLobbyId(0)
             reactnavigate(`/Lobby/${lobbyid}`)
         }
         else {
-            openwindow()
+            openwindow(selectedlobbyId)
         }
+    }
+    
+    function CreateLobby() {
+        
     }
     
     async function fetchData() {
@@ -45,10 +52,7 @@ export function Lobbies() {
         fetchData()
     }, [])
 
-    function CreateLobby() {
-        
-    }
-    
+  
     
     //View
     //----
@@ -59,7 +63,7 @@ export function Lobbies() {
                 <button className="CreateLobby" onClick={CreateLobby}>Create Lobby</button>
             </div>
             
-            <PasswordModal IsOpen={isvisible} closewindow={closewindow}></PasswordModal>
+            <PasswordModal lobbyid={selectedlobbyId} IsOpen={isvisible} closewindow={closewindow}></PasswordModal>
             
             <div id="lobbies" className="lobbies">
                 

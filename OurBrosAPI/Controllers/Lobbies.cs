@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OurBrosAPI.Data.Models;
-using OurBrosAPI.Services.Database;
+using OurBrosAPI.Services.Chat;
 
 namespace OurBrosAPI.Controllers;
 
@@ -10,11 +10,11 @@ public class Lobbies : Controller
 {
     //inject IDatabase service
     //--------------------------
-    private IDatabase _db;
+    private readonly ILobbyService _lobbyservice;
 
-    public Lobbies(IDatabase db)
+    public Lobbies(ILobbyService lobbyService)
     {
-        _db = db;
+        _lobbyservice = lobbyService;
     } 
     //--------------------------
     
@@ -24,7 +24,7 @@ public class Lobbies : Controller
     [HttpGet("GetLobbies")]
     public async Task<List<Lobby>> GetLobbies()
     {
-        var lobbies = await _db.GetLobbies();
+        var lobbies = await _lobbyservice.GetLobbies();
         return lobbies;
     }
     
@@ -33,16 +33,16 @@ public class Lobbies : Controller
     [HttpGet("GetLobby/{id}")]
     public async Task<Lobby> GetLobbies(int id)
     {
-        var lobby = await _db.GetLobbyById(id);
+        var lobby = await _lobbyservice.GetLobbybyId(id);
         return lobby;
     }
     
     //Create lobby
     //--------------------
     [HttpPost("CreateLobby")]
-    public async Task CreateLobby(Lobby _lobby)
+    public async Task CreateLobby(NewLobby _lobby)
     {
-        await _db.CreateLobby(_lobby);
+        await _lobbyservice.CreateLobby();
     }
     
     //Update Lobby
