@@ -1,6 +1,6 @@
 ﻿import {useNavigate} from "react-router-dom";
 import { useForm } from "react-hook-form";
-import * as lobbiesservice from "../../Services/LobbiesService.tsx";
+import * as lobbiesservice from "../../Services/Lobbies/LobbiesService.tsx";
 import {NewLobby} from "../../Data/Models/NewLobby.ts";
 
 
