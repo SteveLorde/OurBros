@@ -8,7 +8,7 @@ import {Lobbies} from "./Components/Lobbies/Lobbies.tsx";
 import {Settings} from "./Components/Settings/Settings.tsx";
 import {LobbyChat} from "./Components/LobbyChat/LobbyChat.tsx";
 import {useEffect} from "react";
-import * as chatservice from "./Services/ChatService.tsx";
+import * as chatservice from "./Services/Chat/ChatService.tsx";
 
 
 function App() {

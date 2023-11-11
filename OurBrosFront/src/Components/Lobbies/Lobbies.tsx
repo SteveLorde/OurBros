@@ -1,7 +1,7 @@
 ﻿import "./Lobbies.css"
 import {useEffect, useState} from "react";
-import * as lobbiesservice from '../../Services/LobbiesService.tsx'
-import * as chatservice from '../../Services/ChatService.tsx'
+import * as lobbiesservice from '../../Services/Lobbies/LobbiesService.tsx'
+import * as chatservice from '../../Services/Chat/ChatService.tsx'
 import {Lobby} from "../../Data/Models/Lobby.ts"
 import {User} from "../../Data/Models/User.ts"
 import * as reactrouter from "react-router-dom";

@@ -37,8 +37,9 @@ public class LobbyService : ILobbyService
 
     public async Task<bool> CreateLobby(LobbyDTO newlobby, UserDTO clientlobbyowner)
     {
+        
         User lobbyowner = await _db.Users.FirstAsync(x => x.username == clientlobbyowner.username);
-        Lobby newLobby = new Lobby { lobbyname = newlobby.lobbyname, lobbyowner = lobbyowner.username, Users = new List<User> {new User(lobbyowner) } };
+        Lobby newLobby = new Lobby { lobbyname = newlobby.lobbyname, lobbyowner = lobbyowner.username, Users = new List<User> {new User(lobbyowner.Id,lobbyowner.username,lobbyowner.userpassword)} };
         newlobby.usercount = newLobby.Users.Count;
         lobbies.Add(newLobby);
         return true;

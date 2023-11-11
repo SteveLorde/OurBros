@@ -1,8 +1,8 @@
 ﻿import "./LobbyChat.css"
 import {Link, useParams} from "react-router-dom"
 import {useEffect, useState} from "react";
-import * as lobbiesservice from '../../Services/LobbiesService.tsx'
-import * as chatservice from '../../Services/ChatService.tsx'
+import * as lobbiesservice from '../../Services/Lobbies/LobbiesService.tsx'
+import * as chatservice from '../../Services/Chat/ChatService.tsx'
 import {Message} from "../../Data/Models/Message.ts";
 import {username} from "../../Services/Authentication/Authentication.tsx";
 

@@ -1,7 +1,7 @@
 ﻿import axios, {AxiosResponse} from "axios";
-import {Lobby} from "../Data/Models/Lobby.ts";
-import {username} from "./Authentication/Authentication.tsx";
-import {NewLobby} from "../Data/Models/NewLobby.ts";
+import {Lobby} from "../../Data/Models/Lobby.ts";
+import {username} from "../Authentication/Authentication.tsx";
+import {NewLobby} from "../../Data/Models/NewLobby.ts";
 
 export async function GetLobbyFromServer(id: number) {
     try {

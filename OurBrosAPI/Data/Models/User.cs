@@ -2,22 +2,18 @@
 
 public class User
 {
-    public User(int id, string username, string password)
+    public User(){}
+    public User(int id, string name, string password)
     {
-        this.Id = id;
-        this.username = username;
-        this.userpassword = password;
-    }
-    
-    public User(User user)
-    {
-        this.Id = user.Id;
-        this.username = user.username;
-        this.userpassword = user.userpassword;
+        Id = id;
+        username = name;
+        userpassword = password;
     }
 
     public int Id { get; set; }
     public string username { get; set; }
     public string userpassword { get; set; }
+    public string salt { get; set; }
+    public string hashedpassword { get; set; }
     
 }

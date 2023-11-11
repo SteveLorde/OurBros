@@ -1,5 +1,5 @@
 ﻿import {useState} from "react";
-import {CheckPassword} from "../../Services/LobbiesService.tsx";
+import {CheckPassword} from "../../Services/Lobbies/LobbiesService.tsx";
 import {useNavigate} from "react-router-dom";
 
 export function PasswordModal({lobbyid,closewindow} : any) {
