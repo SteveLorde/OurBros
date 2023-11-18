@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OurBrosAPI.Data;
+using OurBrosAPI.Services.Authentication;
 using OurBrosAPI.Services.Chat;
 using OurBrosAPI.Services.Chat.Hubs;
 using OurBrosAPI.Services.LobbiesService;
@@ -14,7 +15,8 @@ builder.Services.AddSignalR();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<ILobbyService, LobbyService>();
+builder.Services.AddTransient<IAuth, Auth>();
+builder.Services.AddTransient<ILobbyService, LobbyService>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt =>
 {

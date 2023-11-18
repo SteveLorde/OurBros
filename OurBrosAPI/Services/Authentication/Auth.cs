@@ -51,7 +51,17 @@ class Auth : IAuth
     {
         try
         {
-            
+            //1-hash password
+            Hash hashedpassword = await HashPassword(registerrequest);
+            //2-create new user
+            User newuser = new User
+            {
+                username = registerrequest.username,
+                salt = hashedpassword.salt,
+                hashedpassword = hashedpassword.hash
+            };
+            //3-add to database
+            await _db.Users.AddAsync(newuser);
             return true;
         }
         catch (Exception ex)
@@ -60,7 +70,7 @@ class Auth : IAuth
         }
     }
 
-    public async Task<Hash> HashPassword(UserDTO user)
+    private async Task<Hash> HashPassword(UserDTO user)
     {
         string salt = GenerateSalt();
         string hashedpassword = GenerateHashedPassword(user.userpassword, salt);
@@ -87,7 +97,7 @@ class Auth : IAuth
         return hashedpassword;
     }
 
-    public async Task<bool> VerifyPassword(UserDTO loginrequest)
+    private async Task<bool> VerifyPassword(UserDTO loginrequest)
     {
         User usertoverfiy = await _db.Users.FirstAsync(x => x.username == loginrequest.username);
         string passwordtoverify = GenerateHashedPassword(loginrequest.userpassword, usertoverfiy.salt);

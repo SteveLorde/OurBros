@@ -10,7 +10,7 @@
 }
 
 .navbody{
-    background-color: red;
+    background-color: #2c4d85;
     border-radius: 100px;
     height: 60px;
     display: flex;
@@ -45,6 +45,15 @@ li {
 }
 
 a {
+    text-shadow: 0 0 black;
+    text-underline: none;
+    text-decoration: none;
+    color: whitesmoke;
+    transition: text-shadow 0.3s ease-in-out;
+}
+
+a:hover {
+    text-shadow: 0 0 10px #ffffff;
     text-underline: none;
     text-decoration: none;
     color: whitesmoke;

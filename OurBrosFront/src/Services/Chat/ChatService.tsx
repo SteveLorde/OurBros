@@ -1,7 +1,7 @@
 ﻿import * as signalR from "@microsoft/signalr";
 import {LogLevel} from "@microsoft/signalr";
 import {GetLobbyFromServer} from "../Lobbies/LobbiesService.tsx";
-import {username} from "../Authentication/Authentication.tsx";
+import {currentuser} from "../Authentication/Authentication.tsx";
 
 
 export const connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5143/Chat" , {withCredentials: false}).configureLogging(LogLevel.Information).build()
@@ -28,7 +28,7 @@ connection.on("connect" , message => {
 export async function JoinLobbyOwnerCheck (lobbyname : number) {
     try {
         let lobbydata = await GetLobbyFromServer(lobbyname)
-        return username == lobbydata?.lobbyOwner;
+        return currentuser.username == lobbydata?.lobbyowner;
     }
     catch (err) {
         console.log(err)

@@ -1,6 +1,6 @@
-﻿import {AuthenticationDTO} from "../../Components/Authentication/AuthenticationDTO.ts";
-import axios from "axios";
-import {User} from "../../Data/Models/User.ts";
+﻿import {AuthenticationDTO} from "../../Components/Authentication/AuthenticationDTO.ts"
+import axios from "axios"
+import {User} from "../../Data/Models/User.ts"
 
 
 export let currentuser : User

@@ -18,7 +18,7 @@ public class LobbyService : ILobbyService
     {
         _db = db;
         lobbies = InititateLobbies();
-        _timer = new Timer(PeriodicSaving, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
+        //_timer = new Timer(PeriodicSaving, null, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1));
     }
     private List<Lobby> InititateLobbies()
     {
@@ -74,7 +74,8 @@ public class LobbyService : ILobbyService
             return false;
         }
     }
-
+    
+    /*
     private void PeriodicSaving(object? state)
     {
         foreach (Lobby lobby in lobbies)
@@ -82,6 +83,7 @@ public class LobbyService : ILobbyService
             _db.Lobbies.Update(lobby);
         }
     }
+    */
 
 
 }

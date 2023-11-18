@@ -2,21 +2,30 @@
 import {NewLobby} from "../../Data/Models/NewLobby.ts";
 import {useNavigate} from "react-router-dom";
 import {AuthenticationDTO} from "./AuthenticationDTO.ts";
+import * as authservice from "../../Services/Authentication/Authentication.tsx"
 
 export function AuthenticationLanding() {
-    
-
     
     const { register: loginuser, handleSubmit : submit1} = useForm<AuthenticationDTO>();
     const { register: registeruser, handleSubmit : submit2} = useForm<AuthenticationDTO>();
     const reactnavigate = useNavigate()
     
     async function Login(formdata : AuthenticationDTO) {
-        bool check = auth
+        try {
+            await authservice.LoginUser(formdata)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     
     async function Register(formdata: AuthenticationDTO) {
-        
+        try {
+            await authservice.RegisterUser(formdata)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     
     return (

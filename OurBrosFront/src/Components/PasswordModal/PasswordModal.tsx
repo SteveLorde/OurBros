@@ -2,7 +2,9 @@
 import {CheckPassword} from "../../Services/Lobbies/LobbiesService.tsx";
 import {useNavigate} from "react-router-dom";
 
-export function PasswordModal({lobbyid,closewindow} : any) {
+export function PasswordModal({lobbyid,IsOpen,closewindow} : any) {
+
+    if (!IsOpen) return null;
 
     const reactnavigate = useNavigate()
     const [inputValue, setInputValue] = useState('');

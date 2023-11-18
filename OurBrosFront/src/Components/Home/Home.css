@@ -2,14 +2,14 @@
     color: whitesmoke;
     text-align: center;
     margin-top: 5vw;
-    animation: fadein 1s ease-in;
+    animation: fadein 2s ease-in;
 }
 
 .title2 {
     margin-top: 15px;
     color: whitesmoke;
     text-align: center;
-    animation: fadein 3s ease-in;
+    animation: fadein 2s ease-in;
     opacity: 0;
     animation-delay: 2s;
     animation-fill-mode: forwards;

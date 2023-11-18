@@ -7,24 +7,25 @@ import {User} from "../../Data/Models/User.ts"
 import * as reactrouter from "react-router-dom";
 import {PasswordModal} from "../PasswordModal/PasswordModal.tsx";
 import {useNavigate} from "react-router-dom";
+import {CreateLobbyModal} from "../CreateLobbyModal/CreateLobbyModal.tsx";
 
 export function Lobbies() {
     
     //variables
     //---------
     const [lobbies, setLobbies] = useState([])
-    const [isvisible, SetShowWindow] = useState(false)
+    const [ispassmodalvisible, SetShowWindow] = useState(false)
     const [selectedlobbyId, setSelectedLobbyId] = useState<number>(0);
 
     //functions
     //-------
     const reactnavigate = useNavigate()
-    function openwindow(selectedlobbyid : number) {
+    function openpasswordmodal(selectedlobbyid : number) {
         setSelectedLobbyId(selectedlobbyid)
         SetShowWindow(true)
     }
 
-    function closewindow() {
+    function closepasswordmodal() {
         SetShowWindow(false)
     }
     
@@ -35,7 +36,7 @@ export function Lobbies() {
             reactnavigate(`/Lobby/${lobbyid}`)
         }
         else {
-            openwindow(selectedlobbyId)
+            openpasswordmodal(selectedlobbyId)
         }
     }
     
@@ -63,13 +64,14 @@ export function Lobbies() {
                 <button className="CreateLobby" onClick={CreateLobby}>Create Lobby</button>
             </div>
             
-            <PasswordModal lobbyid={selectedlobbyId} IsOpen={isvisible} closewindow={closewindow}></PasswordModal>
+            <CreateLobbyModal></CreateLobbyModal>
+            <PasswordModal lobbyid={selectedlobbyId} IsOpen={ispassmodalvisible} closewindow={closepasswordmodal}></PasswordModal>
             
             <div id="lobbies" className="lobbies">
                 
                 {lobbies?.map( (item : Lobby) : any => 
                     <div className="LobbyCard">
-                            <h3 className="LobbyTitle">{item.lobbyName}</h3>
+                            <h3 className="LobbyTitle">{item.lobbyname}</h3>
                             <h3 className="LobbyUserCount">Users: {item.usercount}</h3>
                             <div className="LobbyAction">
                                 <button className="joinbutton" onClick={ () => CheckJoin(item.id) }>Join Lobby</button>

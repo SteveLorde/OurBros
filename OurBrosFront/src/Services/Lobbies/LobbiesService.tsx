@@ -1,6 +1,6 @@
 ﻿import axios, {AxiosResponse} from "axios";
 import {Lobby} from "../../Data/Models/Lobby.ts";
-import {username} from "../Authentication/Authentication.tsx";
+import {currentuser} from "../Authentication/Authentication.tsx";
 import {NewLobby} from "../../Data/Models/NewLobby.ts";
 
 export async function GetLobbyFromServer(id: number) {
@@ -32,7 +32,7 @@ export async function CheckPassword(inputpassword : string) {
 }
 export async function CreateLobby(newlobbyrequest : NewLobby) {
     try {
-        let newlobby = {lobbyname: newlobbyrequest.lobbyname, lobbypass: newlobbyrequest.lobbypassword, lobbyowner: username }
+        let newlobby = {lobbyname: newlobbyrequest.lobbyname, lobbypass: newlobbyrequest.lobbypassword, lobbyowner: currentuser.username }
         return await axios.post("http://localhost:5143/Lobbies/CreateLobby", newlobby)
     }
     catch (err) {

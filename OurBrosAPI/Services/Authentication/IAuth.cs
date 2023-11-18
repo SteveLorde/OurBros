@@ -7,6 +7,4 @@ public interface IAuth
 {
     public Task<bool> Login(UserDTO loginrequest);
     public Task<bool> Register(UserDTO registerrequest);
-    public Task<Hash> HashPassword(UserDTO user);
-    public Task<bool> VerifyPassword(UserDTO usertoverify);
 }

@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import * as lobbiesservice from '../../Services/Lobbies/LobbiesService.tsx'
 import * as chatservice from '../../Services/Chat/ChatService.tsx'
 import {Message} from "../../Data/Models/Message.ts";
-import {username} from "../../Services/Authentication/Authentication.tsx";
+import {currentuser} from "../../Services/Authentication/Authentication.tsx";
 
 
 //import {Button, Form} from "react-bootstrap"
@@ -28,8 +28,8 @@ export function LobbyChat() {
     useEffect(() => {
         async function fetchLobbyName() {
             let Lobby = await lobbiesservice.GetLobbyFromServer(lobbyid)
-            setLobbyName(Lobby?.lobbyName)
-            setLobbyOwner(Lobby?.lobbyOwner)
+            setLobbyName(Lobby?.lobbyname)
+            setLobbyOwner(Lobby?.lobbyowner)
         }
         fetchLobbyName()
     }, [])
@@ -49,7 +49,7 @@ export function LobbyChat() {
     function SubmitMessage(event : any) {
         event.preventDefault()
         let messagetosend = {} as Message
-        messagetosend.username = username
+        messagetosend.username = currentuser.username
         messagetosend.message = message
         chatservice.SendMessageInLobby(lobbyid,messagetosend.message)
         message = ''

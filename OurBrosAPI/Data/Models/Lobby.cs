@@ -12,7 +12,7 @@ public class Lobby
     public string? lobbypassword { get; set; }
     public string? lobbyowner { get; set; }
     [NotMapped]
-    public List<User> Users { get; set; }
+    public List<User>? Users { get; set; }
     public int? usercount { get; set; }
 
 }
