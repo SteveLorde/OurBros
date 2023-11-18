@@ -4,9 +4,9 @@ import * as lobbiesservice from "../../Services/Lobbies/LobbiesService.tsx";
 import {NewLobby} from "../../Data/Models/NewLobby.ts";
 
 
-export function CreateLobbyModal({closewindow} : any) {
+export function CreateLobbyModal({IsOpen,closewindow} : any) {
     
-    
+    if (!IsOpen) return null;
     
     const { register, handleSubmit} = useForm<NewLobby>();
     const reactnavigate = useNavigate()
@@ -15,6 +15,9 @@ export function CreateLobbyModal({closewindow} : any) {
         let check = await lobbiesservice.CheckPassword(formdata.lobbypassword)
         if (check == true) {
             let checkcreate = await lobbiesservice.CreateLobby(formdata)
+            if (checkcreate) {
+                closewindow()
+            }
         } else {
             console.log('create lobby failed')
         }
