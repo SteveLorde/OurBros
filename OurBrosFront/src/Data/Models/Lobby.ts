@@ -6,5 +6,6 @@ export interface Lobby {
     lobbyname?: string
     lobbyowner?: string
     usercount?: number
+    islocked? : boolean
     datetime?: Date
 }

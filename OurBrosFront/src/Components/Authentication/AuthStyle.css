@@ -1,0 +1,33 @@
+﻿.inputtitle {
+    color: black;
+}
+
+.body {
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loginform {
+    margin: 10px;
+    background-color: white;
+    padding: 80px;
+}
+
+input {
+    margin: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.registerform {
+    margin: 10px;
+    background-color: white;
+    padding: 80px;
+}

@@ -4,12 +4,13 @@ import {useNavigate} from "react-router-dom";
 import {AuthenticationDTO} from "./AuthenticationDTO.ts";
 import * as authservice from "../../Services/Authentication/Authentication.tsx"
 import {useState} from "react";
+import "./AuthStyle.css"
 
 export function AuthenticationLanding() {
     
     const { register: loginuser, handleSubmit : submit1} = useForm<AuthenticationDTO>();
     const { register: registeruser, handleSubmit : submit2} = useForm<AuthenticationDTO>();
-    const [isregisterformvisible, SetRegisterVisible] = useState<boolean>(false);
+    const [isregisterformvisible, SetRegisterVisible] = useState<boolean>(true);
     const [isloginformvisible, SetLoginVisible] = useState<boolean>(false);
     
     const reactnavigate = useNavigate()
@@ -47,28 +48,30 @@ export function AuthenticationLanding() {
     
     return (
         <>
-            <div hidden={isloginformvisible}>
-                <h2>Login</h2>
-                <button onClick={ () => toggleregister }>Not Registered? click here</button>
-                <form onSubmit={submit1(Login)}>
-                    <h3>Username</h3>
-                    <input type="text" {...loginuser("username")}/>
-                    <h3>Password</h3>
-                    <input type="text"{...loginuser("password")}/>
-                    <button type="submit">Login</button>
-                </form>
-            </div>
-            
-            <div hidden={isregisterformvisible}>
-                <button onClick={ () => togglelogin }>Already Registered? Login</button>
+            <div className="body">
+        {isloginformvisible && <div className="loginform">
+            <button onClick={ () => toggleregister() }>Not Registered? click here</button>
+            <h2>Login</h2>
+            <form className={'form'} onSubmit={submit1(Login)}>
+                <h3 className={'inputtitle'}>Username</h3>
+                <input type="text" {...loginuser("username")}/>
+                <h3 className={'inputtitle'}>Password</h3>
+                <input type="text"{...loginuser("password")}/>
+                <button type="submit">Login</button>
+            </form>
+        </div> }
+
+            {isregisterformvisible && <div className="registerform">
+                <button onClick={ () => togglelogin() }>Already Registered? Login</button>
                 <h2>Register Account</h2>
-                <form onSubmit={submit2(Register)}>
-                    <h3>Username</h3>
+                <form className={'form'} onSubmit={submit2(Register)}>
+                    <h3 className={'inputtitle'}>Username</h3>
                     <input type="text" {...registeruser("username")}/>
-                    <h3>Password</h3>
+                    <h3 className={'inputtitle'}>Password</h3>
                     <input type="text"{...registeruser("password")}/>
                     <button type="submit">Register</button>
                 </form>
+            </div> }
             </div>
         </>
     );

@@ -8,7 +8,8 @@ import * as reactrouter from "react-router-dom";
 import {PasswordModal} from "../PasswordModal/PasswordModal.tsx";
 import {useNavigate} from "react-router-dom";
 import {CreateLobbyModal} from "../CreateLobbyModal/CreateLobbyModal.tsx";
-
+import lockedicon from "../../assets/lockicon.png"
+import unlockedicon from "../../assets/lockopenicon.png"
 export function Lobbies() {
     
     //variables
@@ -79,11 +80,11 @@ export function Lobbies() {
             <div id="lobbies" className="lobbies">
                 
                 {lobbies?.map( (item : Lobby) : any => 
-                    <div className="LobbyCard">
-                            <h3 className="LobbyTitle">{item.lobbyname}</h3>
-                            <h3 className="LobbyUserCount">Users: {item.usercount}</h3>
+                    <div onClick={ () => CheckJoin(item.id) } className="LobbyCard">
+                            <h2 className="LobbyTitle">{item.lobbyname}</h2>
                             <div className="LobbyAction">
-                                <button className="joinbutton" onClick={ () => CheckJoin(item.id) }>Join Lobby</button>
+                                <h3 className="LobbyUserCount">Users: {item.usercount ?? 0}</h3>
+                                {item.islocked == true ? (<img className={'lockicon'} src={unlockedicon} /> ) : ( <img className={'lockicon'} src={lockedicon}/>)}
                             </div>
                         </div>
                     )}

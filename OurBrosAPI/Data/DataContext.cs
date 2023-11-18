@@ -14,9 +14,9 @@ public class DataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     { 
         modelBuilder.Entity<Lobby>().HasData(
-            new Lobby { Id = 1, lobbyname = "Lobby1"},
-            new Lobby { Id = 2, lobbyname = "Lobby2"},
-            new Lobby { Id = 3, lobbyname = "lobby3"}
+            new Lobby { Id = 1, lobbyname = "Lobby1" ,lobbypassword = "123456" , islocked = true},
+            new Lobby { Id = 2, lobbyname = "Lobby2", lobbypassword = "123456", islocked = true},
+            new Lobby { Id = 3, lobbyname = "lobby3", islocked = false}
         );
         modelBuilder.Entity<User>().HasData(
             new User {Id = 1, username = "TestUser1", userpassword = "1234"},

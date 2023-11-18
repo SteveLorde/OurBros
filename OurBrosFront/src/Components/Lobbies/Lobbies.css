@@ -25,6 +25,22 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    padding: 15px;
+    transition: background-color 0.3s ease-in;
+    cursor: pointer;
+    animation: cardfade 0.3s ease-in;
+}
+
+.LobbyCard:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    width: 400px;
+    height: auto;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
     padding: 15px
 }
 
@@ -32,7 +48,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 50px;
+    justify-items: center;
+    justify-content: space-around;
+    gap: 100px;
+}
+
+.LobbyUserCount {
+    font-size: 24px;
+    
 }
 
 .joinbutton {
@@ -41,4 +64,16 @@
     background-color: #193662;
     border-radius: 100px;
     font-weight: bolder;
+    color: white;
+}
+
+.lockicon {
+    width: 20px;
+    margin-bottom: 10px;
+}
+
+@keyframes cardfade {
+    0% {opacity: 0}
+    50% {opacity: 50%}
+    100% {opacity: 100%}
 }
