@@ -30,9 +30,9 @@ public class LobbyService : ILobbyService
         return lobbies;
     }
 
-    public Lobby GetLobby(LobbyDTO lobbytofind)
+    public Lobby GetLobby(int lobbyid)
     {
-        return lobbies.First(x => x.lobbyname == lobbytofind.lobbyname);
+        return lobbies.First(x => x.Id == lobbyid);
     }
 
     public async Task<bool> CreateLobby(LobbyDTO newlobby, UserDTO clientlobbyowner)

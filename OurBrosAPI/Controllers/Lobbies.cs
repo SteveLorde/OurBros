@@ -27,9 +27,9 @@ public class Lobbies : Controller
     }
     
     [HttpPost("GetLobby")]
-    public async Task<Lobby> GetLobby(LobbyDTO lobbytofind)
+    public async Task<Lobby> GetLobby(int lobbyid)
     {
-        return _lobbyservice.GetLobby(lobbytofind);
+        return _lobbyservice.GetLobby(lobbyid);
     }
     
     [HttpPost("CreateLobby")]

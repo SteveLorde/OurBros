@@ -25,9 +25,9 @@ connection.on("connect" , message => {
 
 //SignalR invokers
 //----------------
-export async function JoinLobbyOwnerCheck (lobbyname : number) {
+export async function JoinLobbyOwnerCheck (lobbyid : number) {
     try {
-        let lobbydata = await GetLobbyFromServer(lobbyname)
+        let lobbydata = await GetLobbyFromServer(lobbyid)
         return currentuser.username == lobbydata?.lobbyowner;
     }
     catch (err) {

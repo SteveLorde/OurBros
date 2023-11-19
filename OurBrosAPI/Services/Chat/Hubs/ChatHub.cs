@@ -38,7 +38,7 @@ public class ChatHub : Hub
     
     public async Task JoinLobby(LobbyDTO lobby,UserDTO user)
     {
-        Lobby Lobby = _lobbyservice.GetLobby(lobby);
+        Lobby Lobby = _lobbyservice.GetLobby(lobby.lobbyid);
         await Groups.AddToGroupAsync(Context.ConnectionId, Lobby.lobbyname);
         await _lobbyservice.AddUserToLobby(lobby,user);
         await Clients.Group(Lobby.lobbyname).SendAsync("UserJoined", user.username);

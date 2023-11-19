@@ -1,5 +1,4 @@
 ﻿import {useForm} from "react-hook-form";
-import {NewLobby} from "../../Data/Models/NewLobby.ts";
 import {useNavigate} from "react-router-dom";
 import {AuthenticationDTO} from "./AuthenticationDTO.ts";
 import * as authservice from "../../Services/Authentication/Authentication.tsx"
@@ -27,7 +26,7 @@ export function AuthenticationLanding() {
     
     async function Login(formdata : AuthenticationDTO) {
         try {
-            let check = await authservice.LoginUser(formdata)
+            let check = await authservice.Login(formdata)
             if (check) {
                 reactnavigate('/')
             }
@@ -39,7 +38,13 @@ export function AuthenticationLanding() {
     
     async function Register(formdata: AuthenticationDTO) {
         try {
-            await authservice.RegisterUser(formdata)
+            let checkregister = await authservice.Register(formdata)
+            if (checkregister) {
+                let checklogin = await authservice.Login(formdata)
+                if (checklogin) {
+                    reactnavigate('/')
+                }
+            }
         }
         catch (err) {
             console.log(err)

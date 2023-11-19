@@ -1,6 +1,6 @@
 ﻿import "./Navbar.css"
 import reactLogo from '../../assets/react.svg'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import * as authservice from '../../Services/Authentication/Authentication.tsx'
 
@@ -8,8 +8,10 @@ import * as authservice from '../../Services/Authentication/Authentication.tsx'
 
 export function Navbar() {
     
+    const reactnavigate = useNavigate()
     const [authstatus, setAuthStatus] = useState<string>("Login/Register")
-    
+
+
     //functions
     //---------
     function CheckLoginStatus() {
@@ -18,6 +20,16 @@ export function Navbar() {
         }
         else {
             setAuthStatus("Logout")
+        }
+    }
+    
+    function CheckAuthAction() {
+        if (authservice.isloggedin == true) {
+            authservice.Logout()
+            reactnavigate('/')
+        }
+        else {
+            reactnavigate('/auth')
         }
     }
 
@@ -32,7 +44,7 @@ export function Navbar() {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/Lobbies">Lobbies</Link></li>
                     <li><Link to="/Settings">Settings</Link></li>
-                    <li className="AuthLink"><Link to="/Auth">{authstatus}</Link></li>
+                    <li className="AuthLink" onClick={ () => CheckAuthAction}>{authstatus}</li>
                 </ul>
             </div>
             <img  className="reactlogo" src={reactLogo}/>

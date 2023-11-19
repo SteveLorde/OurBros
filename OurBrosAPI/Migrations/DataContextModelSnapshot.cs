@@ -23,6 +23,9 @@ namespace OurBrosAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool?>("islocked")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("lobbyname")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -44,16 +47,21 @@ namespace OurBrosAPI.Migrations
                         new
                         {
                             Id = 1,
-                            lobbyname = "Lobby1"
+                            islocked = true,
+                            lobbyname = "Lobby1",
+                            lobbypassword = "123456"
                         },
                         new
                         {
                             Id = 2,
-                            lobbyname = "Lobby2"
+                            islocked = true,
+                            lobbyname = "Lobby2",
+                            lobbypassword = "123456"
                         },
                         new
                         {
                             Id = 3,
+                            islocked = false,
                             lobbyname = "lobby3"
                         });
                 });

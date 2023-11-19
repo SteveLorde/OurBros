@@ -7,18 +7,23 @@ export let currentuser : User
 export let sessiontoken : string = " "
 export let isloggedin : boolean = false;
 
-export async function LoginUser(logindata: AuthenticationDTO) {
-    return await axios.post<boolean, boolean>("http://localhost:5143/Authentication/Login", logindata)
+export async function Login(logindata: AuthenticationDTO) {
+        let check = await axios.post<boolean, boolean>("http://localhost:5143/Authentication/Login", logindata)
+        SetLoggedIn(logindata)
+        return check
 }
 
-export async function RegisterUser(registerdata: AuthenticationDTO) {
+export async function Register(registerdata: AuthenticationDTO) {
     return await axios.post<boolean, boolean>("http://localhost:5143/Authentication/Register", registerdata)
 }
 
-export function SetLoggedInUser(loggedinuser : AuthenticationDTO) {
+export function SetLoggedIn(loggedinuser : AuthenticationDTO) {
     currentuser = loggedinuser
+    isloggedin = true
 }
 
-export function DelogUser() {
+export function Logout() {
     currentuser = null
+    sessiontoken = ''
+    isloggedin = false
 }
